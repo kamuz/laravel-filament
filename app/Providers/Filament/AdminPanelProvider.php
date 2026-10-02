@@ -29,6 +29,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->registration()
+            ->passwordReset()
+            ->brandName('Acme Inc')
+            ->brandLogo(asset('images/primary-logo.svg'))
             ->colors([
                 'primary' => Color::Amber,
             ])
