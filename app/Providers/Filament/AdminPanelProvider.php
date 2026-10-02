@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->passwordReset()
             ->brandName('Acme Inc')
             ->brandLogo(asset('images/primary-logo.svg'))
+            ->brandLogoHeight('50px')
             ->colors([
                 'primary' => Color::Amber,
             ])
