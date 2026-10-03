@@ -20,6 +20,7 @@ class PostResource extends Resource
     protected static ?string $model = Post::class;
 
     protected static string|UnitEnum|null $navigationGroup = 'Blog';
+
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'title';
