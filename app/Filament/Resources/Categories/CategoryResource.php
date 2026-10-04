@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class CategoryResource extends Resource
 {
@@ -46,5 +47,37 @@ class CategoryResource extends Resource
             'create' => CreateCategory::route('/create'),
             'edit' => EditCategory::route('/{record}/edit'),
         ];
+    }
+
+    /**
+     * Generate categories tree
+     */
+    public static function getCategoriesTree(Collection $categories, $parentId = null, $depth = 0)
+    {
+        // Create an empty array for the result
+        $options = [];
+
+        // Get categories that belong to the current parent
+        foreach ($categories->where('parent_id', $parentId) as $category) {
+
+            // Create indentation based on the nesting level
+            $prefix = str_repeat('- ', $depth);
+
+            // Add category ID and title to the result
+            $options[$category->id] = $prefix.$category->title;
+
+            // Recursively find child categories
+            $children = self::getCategoriesTree(
+                $categories,
+                $category->id,
+                $depth + 1
+            );
+
+            // Add child categories to the result
+            $options += $children;
+        }
+
+        // Return the complete category tree
+        return $options;
     }
 }
