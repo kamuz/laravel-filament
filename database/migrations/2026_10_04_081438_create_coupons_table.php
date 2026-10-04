@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('title');
             $table->unsignedInteger('discount');
-            $table->enum('type', ['fixed', 'percentage'])->default('fixe');
+            $table->enum('type', ['fixed', 'percentage'])->default('fixed');
             $table->date('expired_at')->nullable();
             $table->unsignedInteger('times')->nullable();
             $table->timestamps();
