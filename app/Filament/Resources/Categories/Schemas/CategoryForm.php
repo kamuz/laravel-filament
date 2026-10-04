@@ -42,8 +42,7 @@ class CategoryForm
                         RichEditor::make('description')
                             ->fileAttachmentsDirectory('images/'.date('Y').'/'.date('m').'/'.date('d')),
                     ]),
-                ])
-                    ->columnSpan(2),
+                ])->columnSpan(2),
                 Group::make()->schema([
                     Section::make()->schema([
                         Select::make('parent_id')
