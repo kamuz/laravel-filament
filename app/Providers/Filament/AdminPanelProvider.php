@@ -63,7 +63,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->navigationGroups([
-                NavigationGroup::make('Blog')
+                NavigationGroup::make('Shop')
                     ->icon('heroicon-o-radio'),
             ])
             ->navigationGroups([
