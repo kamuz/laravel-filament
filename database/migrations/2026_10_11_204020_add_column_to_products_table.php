@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign('products_brand_id_foreign');
+            $table->dropForeign(['brand_id']);
             $table->dropColumn('brand_id');
         });
     }
