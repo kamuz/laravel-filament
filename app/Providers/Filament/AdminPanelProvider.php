@@ -35,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Acme Inc')
             ->brandLogo(asset('images/primary-logo.svg'))
             ->brandLogoHeight('30px')
+            ->sidebarCollapsibleOnDesktop(true)
             ->colors([
                 'primary' => Color::Amber,
             ])
