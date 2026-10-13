@@ -6,32 +6,42 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use stdClass;
 
 class CategoriesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultPaginationPageOption(10)
+            ->paginated([3, 5, 10, 20, 'all'])
+            ->extremePaginationLinks()
             ->columns([
+                TextColumn::make('index')
+                    ->label('#')
+                    ->state(function (HasTable $livewire, stdClass $rowLoop): int {
+                        $perPage = $livewire->getTableRecordsPerPage();
+
+                        if ($perPage === 'all') {
+                            return $rowLoop->iteration;
+                        }
+
+                        return $rowLoop->iteration
+                            + ((int) $perPage * ($livewire->getTablePage() - 1));
+                    }),
                 TextColumn::make('title')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                TextColumn::make('parent_id')
-                    ->numeric()
+                TextColumn::make('parent.title')
                     ->sortable(),
-                TextColumn::make('photo')
+                ImageColumn::make('photo')
                     ->searchable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
